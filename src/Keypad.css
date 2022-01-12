@@ -1,0 +1,44 @@
+.keypad{
+    background-color: white;
+    display: flex; 
+    flex-direction: column;
+    
+    
+    
+}
+
+
+.keypad__topRow{
+    display:flex; 
+    flex-direction: row; 
+    background-color: white; 
+  
+}
+
+.keypad__body{
+    display: flex; 
+    flex-direction: row;
+}
+
+
+.keypad__bodyLeft{
+    background-color:white;
+}
+
+.keypad__bodyLeft__top{
+    justify-content: left;
+
+}
+
+.keypad__bodyLeft__bottom{
+    display: flex;
+
+    
+}
+
+.keypad__bodyRight{
+    background-color:white;
+    display: flex;
+    flex-direction:column;
+  
+}
