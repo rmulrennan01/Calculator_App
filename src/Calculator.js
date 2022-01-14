@@ -5,7 +5,7 @@ import Keypad from "./Keypad.js";
 
 function Calculator() {
  
-    const [display, setDisplay] = useState({previous:0,current:0 });
+    const [display, setDisplay] = useState({previous:0.0,current:0.0 });
     const [operator, setOperator] = useState(null); 
     const [digitInputMode, setDigitInputMode] = useState(false); //true: last key press was a math operator
     const [decimalPlaces, setDecimalPlaces] = useState(0);
@@ -76,7 +76,7 @@ function Calculator() {
     /*
     Bugs:
     -inputting numbers after equals button just concats to the existing answer --fixed
-    -decimalPlaces doesn't reset to 0 after completing a math function
+    -decimalPlaces doesn't reset to 0 after completing a math function --fixed
 
     */
     const equate = () => {
@@ -86,13 +86,13 @@ function Calculator() {
     }
 
     const handleMath = () => {
-        let tempVal = 0; 
+        var tempVal = 0; 
+        
         setDecimalPlaces(0);
         switch (operator) {
             case '+': 
-                console.log("adding: " + display.previous + "and" + display.current); 
-                console.log(display.previous+display.current); 
-                tempVal = display.previous.valueOf()+display.current.valueOf(); 
+                tempVal = Number(display.previous) + Number(display.current); 
+                //Had to use Number() since adding float values was just concatting the values as strings
                 updateDisplay(tempVal, tempVal);  
                 break; 
             case '-':
