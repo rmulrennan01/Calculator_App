@@ -1,3 +1,13 @@
 .historyDisplay{
     display: flex; 
+    flex-direction: column;
+}
+
+.historyDisplay__row{
+    color: darkblue; 
+}
+
+.historyDisplay__row:hover{
+    background-color: darkblue; 
+    color: white; 
 }
