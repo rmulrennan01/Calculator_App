@@ -24,6 +24,8 @@ function HistoryDisplay(props) {
         <div className="historyDisplay">
             
             History:
+            <br/>
+            <button onClick={()=>props.historyDelete()}>Clear</button> 
             <br/> 
             {props.historyData.map(printCalcs)}
         </div>

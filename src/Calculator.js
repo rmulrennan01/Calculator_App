@@ -10,7 +10,7 @@ function Calculator() {
     const [operator, setOperator] = useState(null); 
     const [digitInputMode, setDigitInputMode] = useState(false); //true: last key press was a math operator
     const [decimalPlaces, setDecimalPlaces] = useState(0);
-    const [history, setHistory] = useState([{prev:null,operator:null, current:null, answer:null }])
+    const [history, setHistory] = useState([{prev:null,operator:null, current:null, answer:null }]); 
     
     const updateDisplay = (prev,cur) => {
         setDisplay({previous:prev, current:cur});
@@ -65,10 +65,15 @@ function Calculator() {
         setDecimalPlaces(0); 
     }
 
+    const clearHistory = () => {
+        setHistory([{prev:null,operator:null, current:null, answer:null }]); 
+    }
+
 
     /*
     Bugs:
-    -inputting numbers after equals button just concats to the existing answer --fixed
+    -if equals sign is clicked immediately after operator is clicked, the following digit inputs will just
+     concat to the existing answer
     -decimalPlaces doesn't reset to 0 after completing a math function --fixed
     -if first press is a decimal mark, the next two digits are added together under the .1 position
 
@@ -169,6 +174,7 @@ function Calculator() {
             <br/> 
             <HistoryDisplay 
                 historyData ={history}
+                historyDelete={clearHistory}
             />
         </div>
     )
