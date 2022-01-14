@@ -11,9 +11,9 @@ function Keypad(props) {
         <div className="keypad"> 
             <div className="keypad__topRow">
                 <Button display="clear" clickFunc={()=>props.clearFunc()}/> 
-                <Button display="÷" clickFunc={()=>props.divideFunc()}/>
-                <Button display="X" clickFunc={()=>props.multFunc()}/> 
-                <Button display="-" clickFunc={()=>props.subtractFunc()}/>  
+                <Button display="÷" clickFunc={()=>props.mathFunc('÷')}/>
+                <Button display="X" clickFunc={()=>props.mathFunc('x')}/> 
+                <Button display="-" clickFunc={()=>props.mathFunc('-')}/>  
                 
             </div>
             <div className="keypad__body"> 
@@ -43,8 +43,8 @@ function Keypad(props) {
                 </div> 
                 <div className="keypad__bodyRight"> 
                     <div> 
-                        <div><Button display="+" clickFunc={()=>props.addFunc()}/></div>  
-                        <div><Button display="Enter" clickFunc={()=>alert("hey")}/></div> 
+                        <div><Button display="+" clickFunc={()=>props.mathFunc('+')}/></div>  
+                        <div><Button display="=" clickFunc={()=>props.equalFunc()}/></div> 
                     </div> 
                 </div> 
             </div> 
