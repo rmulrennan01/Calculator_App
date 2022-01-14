@@ -1,6 +1,7 @@
     import React, {useEffect, useState} from 'react'
 import Display from "./Display.js"; 
 import Keypad from "./Keypad.js"; 
+import HistoryDisplay from "./HistoryDisplay.js"; 
 
 
 function Calculator() {
@@ -9,9 +10,16 @@ function Calculator() {
     const [operator, setOperator] = useState(null); 
     const [digitInputMode, setDigitInputMode] = useState(false); //true: last key press was a math operator
     const [decimalPlaces, setDecimalPlaces] = useState(0);
+    const [history, setHistory] = useState([{prev:null,operator:null, current:null, answer:null }])
     
     const updateDisplay = (prev,cur) => {
         setDisplay({previous:prev, current:cur});
+    }
+
+    const updateHistory = (v1,op,v2,ans) => {
+        setHistory(history.concat([{prev:v1,operator:op, current:v2, answer:ans }])); 
+        console.log("updated"); 
+
     }
     
     const concatDisplay = (a) => {
@@ -20,27 +28,15 @@ function Calculator() {
         if(digitInputMode == false){ //digit entry after cleared display
             if(decimalPlaces==0){               
                 updateDisplay(display.previous,a); 
-                console.log("Number of decimal places: " + decimalPlaces); 
-                console.log("digitInputMode: "+digitInputMode); 
             }
             else {
-                /*
-                newNum = (display.current*10+a)*(10**(-decimalPlaces));
-                newNum = newNum.toFixed(decimalPlaces); 
-                */
                 updateDisplay(display.previous,(a*0.1).toFixed(1));
-                setDecimalPlaces(1);   
-                console.log("Number of decimal places: " + decimalPlaces); 
-                console.log("digitInputMode: "+digitInputMode); 
+                setDecimalPlaces(1);                   
             } 
         }
         else{
             if(decimalPlaces==0){
-                
-                updateDisplay(display.previous,(display.current*10)+a); 
-                console.log("Number of decimal places: " + decimalPlaces); 
-                console.log("digitInputMode: "+digitInputMode); 
-                
+                updateDisplay(display.previous,(display.current*10)+a);                 
             }
             else {
                 wholeNum = display.current * (10**decimalPlaces); //convert, so no decimal
@@ -48,10 +44,7 @@ function Calculator() {
                 newNum = wholeNum * (10**(-decimalPlaces)); //convert value from wholeNum to shift decimal
                 newNum = newNum.toFixed(decimalPlaces); //toFixed must be used to correct floating point precision error with jsx
                 updateDisplay(display.previous,newNum);
-                setDecimalPlaces(decimalPlaces+1);  
-                console.log("Number of decimal places: " + decimalPlaces); 
-                console.log("digitInputMode: "+digitInputMode); 
-                
+                setDecimalPlaces(decimalPlaces+1);                  
             } 
 
         }
@@ -77,6 +70,7 @@ function Calculator() {
     Bugs:
     -inputting numbers after equals button just concats to the existing answer --fixed
     -decimalPlaces doesn't reset to 0 after completing a math function --fixed
+    -if first press is a decimal mark, the next two digits are added together under the .1 position
 
     */
     const equate = () => {
@@ -86,14 +80,18 @@ function Calculator() {
     }
 
     const handleMath = () => {
-        var tempVal = 0; 
+        let tempVal = 0; 
+        let prevVal = display.previous; 
+        let curVal = display.current; 
         
         setDecimalPlaces(0);
+        //updateHistory(display.previous,operator,display.current); 
         switch (operator) {
             case '+': 
                 tempVal = Number(display.previous) + Number(display.current); 
                 //Had to use Number() since adding float values was just concatting the values as strings
                 updateDisplay(tempVal, tempVal);  
+                
                 break; 
             case '-':
             
@@ -117,6 +115,7 @@ function Calculator() {
                 updateDisplay(tempVal, tempVal);  
                 break; 
         }
+        updateHistory(prevVal,operator,curVal,tempVal); 
          
     }
 
@@ -167,6 +166,10 @@ function Calculator() {
                 equalFunc = {equate}
                 decimalFunc = {decimal}
             /> 
+            <br/> 
+            <HistoryDisplay 
+                historyData ={history}
+            />
         </div>
     )
 }
