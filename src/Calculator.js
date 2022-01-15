@@ -31,7 +31,7 @@ function Calculator() {
             }
             else {
                 updateDisplay(display.previous,(a*0.1).toFixed(1));
-                setDecimalPlaces(1);                   
+                setDecimalPlaces(decimalPlaces+1);                   
             } 
         }
         else{
@@ -57,6 +57,7 @@ function Calculator() {
         if(decimalPlaces == 0){
            setDecimalPlaces(1); 
        }
+       
     }
 
     const clear = () => { //clear display and operator
@@ -73,15 +74,17 @@ function Calculator() {
     /*
     Bugs:
     -if equals sign is clicked immediately after operator is clicked, the following digit inputs will just
-     concat to the existing answer
+     concat to the existing answer --fixed
     -decimalPlaces doesn't reset to 0 after completing a math function --fixed
     -if first press is a decimal mark, the next two digits are added together under the .1 position
+    -needs negative value button
 
     */
     const equate = () => {
         handleMath(); 
         setDecimalPlaces(0); 
         setOperator(null); 
+        setDigitInputMode(false); 
     }
 
     const handleMath = () => {
@@ -89,7 +92,7 @@ function Calculator() {
         let prevVal = display.previous; 
         let curVal = display.current; 
         
-        setDecimalPlaces(0);
+        
         //updateHistory(display.previous,operator,display.current); 
         switch (operator) {
             case '+': 
@@ -121,6 +124,7 @@ function Calculator() {
                 break; 
         }
         updateHistory(prevVal,operator,curVal,tempVal); 
+        setDecimalPlaces(0);
          
     }
 
@@ -148,6 +152,7 @@ function Calculator() {
                 handleMath();  
                 setOperator(input); 
                 setDigitInputMode(false); 
+                
             }
             else{
                 setOperator(input); 

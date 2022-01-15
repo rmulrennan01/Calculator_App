@@ -7,7 +7,7 @@ function HistoryDisplay(props) {
     
 
     const printCalcs = (n) =>{
-        if(n.prev != null){
+        if(n.operator != null){
         return(
             <div className="historyDisplay__row" onClick={()=>alert(n.answer)}>
             {n.prev} {n.operator} {n.current} = {n.answer}
