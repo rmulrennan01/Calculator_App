@@ -4,6 +4,29 @@ import Keypad from "./Keypad.js";
 import HistoryDisplay from "./HistoryDisplay.js"; 
 
 
+ /*
+    Bugs:
+    -if equals sign is clicked immediately after operator is clicked, the following digit inputs will just
+     concat to the existing answer --fixed
+    -decimalPlaces doesn't reset to 0 after completing a math function --fixed
+    -if first press is a decimal mark, the next two digits are added together under the .1 position
+    -needs negative value button --fixed
+    -the digit concating doens't work as expected after pressing the "neg" button
+
+    */
+
+
+    /*
+    Features to add:
+    Exponents
+    Squareroot 
+    Independent C & CE options
+    Click history to apply answer to the screen
+    CSS work...
+
+    */
+
+
 function Calculator() {
  
     const [display, setDisplay] = useState({previous:0.0,current:0.0 });
@@ -46,10 +69,7 @@ function Calculator() {
                 updateDisplay(display.previous,newNum);
                 setDecimalPlaces(decimalPlaces+1);                  
             } 
-
         }
-           
-
         setDigitInputMode(true); 
     }; 
 
@@ -57,7 +77,6 @@ function Calculator() {
         if(decimalPlaces == 0){
            setDecimalPlaces(1); 
        }
-       
     }
 
     const clear = () => { //clear display and operator
@@ -71,15 +90,7 @@ function Calculator() {
     }
 
 
-    /*
-    Bugs:
-    -if equals sign is clicked immediately after operator is clicked, the following digit inputs will just
-     concat to the existing answer --fixed
-    -decimalPlaces doesn't reset to 0 after completing a math function --fixed
-    -if first press is a decimal mark, the next two digits are added together under the .1 position
-    -needs negative value button
-
-    */
+   
     const equate = () => {
         handleMath(); 
         setDecimalPlaces(0); 
@@ -87,13 +98,13 @@ function Calculator() {
         setDigitInputMode(false); 
     }
 
+    
+
     const handleMath = () => {
         let tempVal = 0; 
         let prevVal = display.previous; 
         let curVal = display.current; 
         
-        
-        //updateHistory(display.previous,operator,display.current); 
         switch (operator) {
             case '+': 
                 tempVal = Number(display.previous) + Number(display.current); 
@@ -103,7 +114,7 @@ function Calculator() {
                 break; 
             case '-':
             
-                tempVal = display.previous-display.current; 
+                tempVal = Number(display.previous)-Number(display.current); 
                 updateDisplay(tempVal, tempVal);  
                 break; 
             case '÷':
@@ -113,13 +124,18 @@ function Calculator() {
                 }
                 else{ 
                   
-                    tempVal = display.previous/display.current; 
+                    tempVal = Number(display.previous)/Number(display.current); 
                     updateDisplay(tempVal, tempVal);  
                 }
                 break;  
             case 'x':
                
-                tempVal = display.previous*display.current; 
+                tempVal = Number(display.previous)*Number(display.current); 
+                updateDisplay(tempVal, tempVal);  
+                break; 
+            case '^':
+            
+                tempVal = Number(display.previous)**Number(display.current); 
                 updateDisplay(tempVal, tempVal);  
                 break; 
         }
@@ -175,6 +191,7 @@ function Calculator() {
                 mathFunc = {handleOperator}
                 equalFunc = {equate}
                 decimalFunc = {decimal}
+                negFunc = {()=>updateDisplay(display.previous,display.current*(-1))}
             /> 
             <br/> 
             <HistoryDisplay 
