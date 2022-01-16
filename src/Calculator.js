@@ -18,7 +18,7 @@ import HistoryDisplay from "./HistoryDisplay.js";
 
     /*
     Features to add:
-    Exponents
+    Exponents - done
     Squareroot 
     Independent C & CE options
     Click history to apply answer to the screen
@@ -192,11 +192,13 @@ function Calculator() {
                 equalFunc = {equate}
                 decimalFunc = {decimal}
                 negFunc = {()=>updateDisplay(display.previous,display.current*(-1))}
+                
             /> 
             <br/> 
             <HistoryDisplay 
                 historyData ={history}
                 historyDelete={clearHistory}
+                useAnswer = {(n)=>updateDisplay(0,n)}
             />
         </div>
     )
