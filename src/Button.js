@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react'
+import "./Button.css"
 
 function Button(props) {
    
     return (
-        <>
-        <button onClick={props.clickFunc}>{props.display}</button> 
-        </>
+        <div>
+         <button className= "button" onClick={props.clickFunc}>{props.display}</button> 
+        </div>
     )
 }
 

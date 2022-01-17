@@ -2,43 +2,18 @@
     background-color: white;
     display: flex; 
     flex-direction: column;
+    gap: 12px; 
+    
     
     
     
 }
 
-
-.keypad__topRow{
-    display:flex; 
-    flex-direction: row; 
-    background-color: white; 
-  
-}
-
-.keypad__body{
+.keypad__row{
     display: flex; 
-    flex-direction: row;
-}
-
-
-.keypad__bodyLeft{
-    background-color:white;
-}
-
-.keypad__bodyLeft__top{
-    justify-content: left;
+    gap: 12px; 
 
 }
 
-.keypad__bodyLeft__bottom{
-    display: flex;
 
-    
-}
 
-.keypad__bodyRight{
-    background-color:white;
-    display: flex;
-    flex-direction:column;
-  
-}
