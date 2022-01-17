@@ -2,6 +2,8 @@
     display: flex; 
     flex-direction: column;
     background-color: #E9E9EB;
+    width: 236px; 
+
 }
 
 
@@ -15,18 +17,19 @@
 .historyDisplay__body{
     color: black; 
     overflow:scroll; 
-    height: 100px; 
+    height:350px; 
+     
     
 }
 
 .historyDisplay__body__equation{
     color: black; 
-    font-size:20px; 
+    font-size:14px; 
 }
 
 .historyDisplay__body__answer{
     color: black; 
-    font-size:28px
+    font-size:22px
 }
 
 .historyDisplay__body__answer:hover{

@@ -1,0 +1,19 @@
+.calculator{
+    margin-left:40px;
+    margin-top: 40px; 
+    display:flex;
+    flex-direction:row;
+    height:500px;  
+    gap:14px;
+    
+}
+
+.calculator__leftside{
+    display: flex; 
+    flex-direction:row; 
+}
+
+.calculator__rightside{
+    color:black; 
+
+}

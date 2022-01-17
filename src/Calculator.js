@@ -2,6 +2,7 @@
 import Display from "./Display.js"; 
 import Keypad from "./Keypad.js"; 
 import HistoryDisplay from "./HistoryDisplay.js"; 
+import "./Calculator.css"; 
 
 
  /*
@@ -191,28 +192,37 @@ function Calculator() {
     }
 
     return (
-        <div>
-            <Display 
-                result={display.current} 
-                previous={display.previous}
-                operation={operator}
-            /> 
-            <br/> 
-            <Keypad 
-                digitFunc = {concatDisplay}
-                clearFunc = {clear}
-                mathFunc = {handleOperator}
-                equalFunc = {equate}
-                decimalFunc = {decimal}
-                negFunc = {()=>updateDisplay(display.previous,display.current*(-1))}
-                
-            /> 
-            <br/> 
-            <HistoryDisplay 
-                historyData ={history}
-                historyDelete={clearHistory}
-                useAnswer = {(n)=>updateDisplay(0,n)}
-            />
+        <div className="calculator">
+            <div>
+                <div>
+                    <Display 
+                        result={display.current} 
+                        previous={display.previous}
+                        operation={operator}
+                    /> 
+
+                </div>
+                <br/>
+
+                <div> 
+                    <Keypad 
+                        digitFunc = {concatDisplay}
+                        clearFunc = {clear}
+                        mathFunc = {handleOperator}
+                        equalFunc = {equate}
+                        decimalFunc = {decimal}
+                        negFunc = {()=>updateDisplay(display.previous,display.current*(-1))}
+                    /> 
+                </div> 
+            </div>
+
+            <div className="calculator__rightside">
+                <HistoryDisplay 
+                    historyData ={history}
+                    historyDelete={clearHistory}
+                    useAnswer = {(n)=>updateDisplay(0,n)}
+                />
+            </div>
         </div>
     )
 }
