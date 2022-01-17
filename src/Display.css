@@ -1,3 +1,21 @@
 .display{
     display:flex; 
+    flex-direction: column;
+    background-color: #E9E9EB; 
+    border: none; 
+    text-align: right;
+    padding-right:10px;     
+    font-size: 16px; 
+    border-radius: 6px;
+    width: 226px; 
+    height: 75px; 
+}
+
+.display__previous{
+    font-size: 16px; 
+}
+
+.display__current{
+    font-size: 36px; 
+
 }

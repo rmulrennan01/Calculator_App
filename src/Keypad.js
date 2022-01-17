@@ -11,7 +11,7 @@ function Keypad(props) {
         <div className="keypad"> 
             <div className = "keypad__row">
                 <Button display="clear" clickFunc={()=>props.clearFunc()}/> 
-                <Button display="sqrt" clickFunc={()=>props.clearFunc()}/> 
+                <Button display="√" clickFunc={()=>props.mathFunc('√')}/> 
                 <Button display="^" clickFunc={()=>props.mathFunc('^')}/> 
                 <Button display="÷" clickFunc={()=>props.mathFunc('÷')}/>
             </div>

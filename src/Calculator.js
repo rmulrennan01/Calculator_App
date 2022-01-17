@@ -138,6 +138,10 @@ function Calculator() {
                 tempVal = Number(display.previous)**Number(display.current); 
                 updateDisplay(tempVal, tempVal);  
                 break; 
+            case '√':
+                tempVal = Number(display.current)**(0.5); 
+                prevVal= null; 
+                updateDisplay(tempVal, tempVal); 
         }
         updateHistory(prevVal,operator,curVal,tempVal); 
         setDecimalPlaces(0);
@@ -156,14 +160,23 @@ function Calculator() {
 
     const handleOperator = (input) => {
      
-        if(operator == null){ 
+        if (input == '√'){
+            setOperator(input); 
+            handleMath(); 
+            setDigitInputMode(false); 
+            
+        }
+        
+        else if(operator == null){ 
             setOperator(input); 
             
             updateDisplay(display.current,display.current); 
             setDigitInputMode(false);         
             setDecimalPlaces(0); 
         }
+
         else{
+
             if(digitInputMode == true){ 
                 handleMath();  
                 setOperator(input); 

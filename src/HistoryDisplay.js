@@ -9,10 +9,15 @@ function HistoryDisplay(props) {
     const printCalcs = (n) =>{
         if(n.operator != null){
         return(
-            <div className="historyDisplay__row" onClick={()=>props.useAnswer(n.answer)}>
-            {n.prev} {n.operator} {n.current} = {n.answer}
-            <br/> 
-            </div> 
+
+            <>
+                <div className="historyDisplay__body__equation">
+                    {n.prev} {n.operator} {n.current} =
+                </div>
+                <div className="historyDisplay__body__answer" onClick={()=>props.useAnswer(n.answer)}>
+                     {n.answer}
+                </div>
+            </>
         ) ; 
         }
 
@@ -22,12 +27,17 @@ function HistoryDisplay(props) {
     return (
         //listName.map(funcName)
         <div className="historyDisplay">
+            <div className="historyDisplay__header">
+                history
+            </div>
+            <div className="historyDisplay__body">
+                {props.historyData.map(printCalcs)}
+            </div>
+            <div className="historyDisplay__footer" onClick={()=>props.historyDelete()}>
+                clear
+            </div>
+           
             
-            History:
-            <br/>
-            <button onClick={()=>props.historyDelete()}>Clear</button> 
-            <br/> 
-            {props.historyData.map(printCalcs)}
         </div>
     )
 }

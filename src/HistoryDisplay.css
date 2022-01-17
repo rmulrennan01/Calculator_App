@@ -1,13 +1,43 @@
 .historyDisplay{
     display: flex; 
     flex-direction: column;
+    background-color: #E9E9EB;
 }
 
-.historyDisplay__row{
-    color: darkblue; 
+
+
+.historyDisplay__header{
+    color: black; 
+   
+
 }
 
-.historyDisplay__row:hover{
-    background-color: darkblue; 
-    color: white; 
+.historyDisplay__body{
+    color: black; 
+    overflow:scroll; 
+    height: 100px; 
+    
 }
+
+.historyDisplay__body__equation{
+    color: black; 
+    font-size:20px; 
+}
+
+.historyDisplay__body__answer{
+    color: black; 
+    font-size:28px
+}
+
+.historyDisplay__body__answer:hover{
+    background-color:white; 
+}
+
+.historyDisplay__footer{
+    color:black; 
+}
+
+.historyDisplay__footer:hover{
+    background-color:white; 
+}
+
