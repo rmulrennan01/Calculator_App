@@ -13,7 +13,7 @@ import "./Calculator.css";
     -if first press is a decimal mark, the next two digits are added together under the .1 position
     -needs negative value button --fixed
     -the digit concating doens't work as expected after pressing the "neg" button --
-
+    -handle overflow of calculation value
     */
 
 
@@ -129,12 +129,7 @@ function Calculator() {
                 tempVal = Number(display.previous)**Number(display.current); 
                 updateDisplay(tempVal, tempVal);  
                 break; 
-            case '√':
-                tempVal = Number(curVal)**(0.5); 
-                console.log(display.current); 
-                //prevVal= null; 
-                updateDisplay(tempVal, tempVal); 
-                setOperator(null); 
+            //case for sqrt is covered within handleoperator, as this is a more unique case. 
         }
         updateHistory(prevVal,operator,curVal,tempVal); 
         setDecimalPlaces(0);
@@ -154,11 +149,6 @@ function Calculator() {
     const handleOperator = (input) => {
      
         if (input == '√'){
-            /*setOperator(input); 
-            console.log("about to run handlemath"); 
-            handleMath(); 
-            console.log("ran handleMath()");
-            */
             let tempCurrent= display.current
             let tempAns = Number(display.current)**(0.5);
             updateDisplay(0, tempAns); 

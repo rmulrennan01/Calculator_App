@@ -28,7 +28,7 @@ function HistoryDisplay(props) {
         //listName.map(funcName)
         <div className="historyDisplay">
             <div className="historyDisplay__header">
-                history
+                History
             </div>
             <div className="historyDisplay__body">
                 {props.historyData.map(printCalcs)}

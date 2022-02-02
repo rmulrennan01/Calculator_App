@@ -25,11 +25,13 @@
 .historyDisplay__body__equation{
     color: black; 
     font-size:14px; 
+    padding-top: 18px; 
 }
 
 .historyDisplay__body__answer{
     color: black; 
-    font-size:22px
+    font-size:22px;
+    padding-top: 5px; 
 }
 
 .historyDisplay__body__answer:hover{

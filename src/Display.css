@@ -17,5 +17,6 @@
 
 .display__current{
     font-size: 36px; 
+    overflow-x: scroll; 
 
 }
