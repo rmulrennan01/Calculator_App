@@ -12,20 +12,10 @@ import "./Calculator.css";
     -decimalPlaces doesn't reset to 0 after completing a math function --fixed
     -if first press is a decimal mark, the next two digits are added together under the .1 position
     -needs negative value button --fixed
-    -the digit concating doens't work as expected after pressing the "neg" button
+    -the digit concating doens't work as expected after pressing the "neg" button --
 
     */
 
-
-    /*
-    Features to add:
-    Exponents - done
-    Squareroot 
-    Independent C & CE options
-    Click history to apply answer to the screen
-    CSS work...
-
-    */
 
 
 function Calculator() {
@@ -42,7 +32,7 @@ function Calculator() {
 
     const updateHistory = (v1,op,v2,ans) => {
         setHistory(history.concat([{prev:v1,operator:op, current:v2, answer:ans }])); 
-        console.log("updated"); 
+        //console.log("updated history"); 
 
     }
     
@@ -140,9 +130,11 @@ function Calculator() {
                 updateDisplay(tempVal, tempVal);  
                 break; 
             case '√':
-                tempVal = Number(display.current)**(0.5); 
-                prevVal= null; 
+                tempVal = Number(curVal)**(0.5); 
+                console.log(display.current); 
+                //prevVal= null; 
                 updateDisplay(tempVal, tempVal); 
+                setOperator(null); 
         }
         updateHistory(prevVal,operator,curVal,tempVal); 
         setDecimalPlaces(0);
@@ -162,9 +154,18 @@ function Calculator() {
     const handleOperator = (input) => {
      
         if (input == '√'){
-            setOperator(input); 
+            /*setOperator(input); 
+            console.log("about to run handlemath"); 
             handleMath(); 
+            console.log("ran handleMath()");
+            */
+            let tempCurrent= display.current
+            let tempAns = Number(display.current)**(0.5);
+            updateDisplay(0, tempAns); 
             setDigitInputMode(false); 
+            updateHistory(null, '√', tempCurrent, tempAns); 
+            setDecimalPlaces(0); 
+
             
         }
         
