@@ -13,7 +13,7 @@ import "./Calculator.css";
     -if first press is a decimal mark, the next two digits are added together under the .1 position
     -needs negative value button --fixed
     -the digit concating doens't work as expected after pressing the "neg" button --
-    -handle overflow of calculation value
+    -handle overflow of calculation value -- Fixed. Added horizontal scroll. 
     */
 
 
@@ -39,6 +39,12 @@ function Calculator() {
     const concatDisplay = (a) => {
         let wholeNum = 0; 
         let newNum = 0; 
+        let negFactor = 1; 
+        if(display.current<0){ 
+            /*Due to the way the math for adding digits work, we'll need a factor to
+                change negative display values to a positive value first */ 
+            negFactor = -1; 
+        }
         if(digitInputMode == false){ //digit entry after cleared display
             if(decimalPlaces==0){               
                 updateDisplay(display.previous,a); 
@@ -50,14 +56,19 @@ function Calculator() {
         }
         else{
             if(decimalPlaces==0){
-                updateDisplay(display.previous,(display.current*10)+a);                 
+                newNum = negFactor * display.current * 10 + a; 
+                updateDisplay(display.previous,newNum * negFactor); 
             }
+
+
             else {
-                wholeNum = display.current * (10**decimalPlaces); //convert, so no decimal
+                
+                wholeNum = negFactor * display.current * (10**decimalPlaces); //convert, so no decimal
+                
                 wholeNum = wholeNum + a; //shift one power of 10 and add new digit
                 newNum = wholeNum * (10**(-decimalPlaces)); //convert value from wholeNum to shift decimal
                 newNum = newNum.toFixed(decimalPlaces); //toFixed must be used to correct floating point precision error with jsx
-                updateDisplay(display.previous,newNum);
+                updateDisplay(display.previous,newNum * negFactor);
                 setDecimalPlaces(decimalPlaces+1);                  
             } 
         }
@@ -87,6 +98,13 @@ function Calculator() {
         setDecimalPlaces(0); 
         setOperator(null); 
         setDigitInputMode(false); 
+    }
+
+    const makeNegative = () => {
+        updateDisplay(display.previous, display.current*(-1))
+
+
+
     }
 
     
@@ -148,7 +166,7 @@ function Calculator() {
 
     const handleOperator = (input) => {
      
-        if (input == '√'){
+        if (input == '√'){ 
             let tempCurrent= display.current
             let tempAns = Number(display.current)**(0.5);
             updateDisplay(0, tempAns); 
@@ -202,7 +220,7 @@ function Calculator() {
                         mathFunc = {handleOperator}
                         equalFunc = {equate}
                         decimalFunc = {decimal}
-                        negFunc = {()=>updateDisplay(display.previous,display.current*(-1))}
+                        negFunc = {()=> makeNegative()}
                     /> 
                 </div> 
             </div>
