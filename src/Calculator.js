@@ -1,4 +1,4 @@
-    import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Display from "./Display.js"; 
 import Keypad from "./Keypad.js"; 
 import HistoryDisplay from "./HistoryDisplay.js"; 
@@ -12,7 +12,7 @@ import "./Calculator.css";
     -decimalPlaces doesn't reset to 0 after completing a math function --fixed
     -if first press is a decimal mark, the next two digits are added together under the .1 position
     -needs negative value button --fixed
-    -the digit concating doens't work as expected after pressing the "neg" button --
+    -the digit concating doens't work as expected after pressing the "neg" button -- fixed
     -handle overflow of calculation value -- Fixed. Added horizontal scroll. 
     */
 
@@ -36,12 +36,24 @@ function Calculator() {
 
     }
     
+
+    /*
+    -So we don't have to parse strings with decimals, we'll just use arithmatic to concat digits
+    -Adding digits works as follows -> Multiply the existing value by 10 and then add the new digit
+    -If the existing dispaly value is a negative, we have to convert the negative value to a positive first,
+    otherwise the multiplication of 10 will make it lesser in value
+    -We'll keep track of the number of decimal places with a state. If a value has a decimal point, we'll use the state to determine
+     what power of 10 to multiply by to shift the decimal, so the value is a whole number. Then we'll use the same
+     process used described above for whole numbers for adding the additional digit. Then we shift back a negavtive power of 10
+     to appropriately place the decimal
+
+    */
     const concatDisplay = (a) => {
         let wholeNum = 0; 
         let newNum = 0; 
         let negFactor = 1; 
         if(display.current<0){ 
-            /*Due to the way the math for adding digits work, we'll need a factor to
+            /*Due to the way we'll be multiplying current displayed values by 10, we'll need a factor to
                 change negative display values to a positive value first */ 
             negFactor = -1; 
         }
@@ -50,7 +62,7 @@ function Calculator() {
                 updateDisplay(display.previous,a); 
             }
             else {
-                updateDisplay(display.previous,(a*0.1).toFixed(1));
+                updateDisplay(display.previous,(a*0.1).toFixed(1)); //toFixed must be used to correct floating point precision error
                 setDecimalPlaces(decimalPlaces+1);                   
             } 
         }
@@ -62,12 +74,10 @@ function Calculator() {
 
 
             else {
-                
                 wholeNum = negFactor * display.current * (10**decimalPlaces); //convert, so no decimal
-                
                 wholeNum = wholeNum + a; //shift one power of 10 and add new digit
                 newNum = wholeNum * (10**(-decimalPlaces)); //convert value from wholeNum to shift decimal
-                newNum = newNum.toFixed(decimalPlaces); //toFixed must be used to correct floating point precision error with jsx
+                newNum = newNum.toFixed(decimalPlaces); //toFixed must be used to correct floating point precision error
                 updateDisplay(display.previous,newNum * negFactor);
                 setDecimalPlaces(decimalPlaces+1);                  
             } 
@@ -102,9 +112,6 @@ function Calculator() {
 
     const makeNegative = () => {
         updateDisplay(display.previous, display.current*(-1))
-
-
-
     }
 
     
